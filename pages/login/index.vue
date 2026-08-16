@@ -5,23 +5,23 @@ definePageMeta({
 </script>
 <template>
     <div class="bg-slate-200 h-screen">
-        <div class="flex justify-between"></div>
+        <div class="flex justify-between" />
         <div class="w-[300px] mt-20">
             <div class="flex flex-col gap-2">
                 <h1 class="text-2xl mb-3">Sign In</h1>
                 <input
-                    type="text"
-                    name=""
-                    placeholder="info@company.com"
                     id=""
+                    name=""
+                    type="text"
+                    placeholder="info@company.com"
                     class="focus:bg-focus-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-0 focus:focus:border-brand-800"
                 />
 
                 <input
-                    type="password"
-                    name=""
-                    placeholder="Password"
                     id=""
+                    name=""
+                    type="password"
+                    placeholder="Password"
                     class="mb-2 focus:bg-focus-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-0 focus:focus-brand-800"
                 />
 

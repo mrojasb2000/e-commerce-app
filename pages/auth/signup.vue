@@ -1,30 +1,56 @@
 <script setup>
+import { useVuelidate } from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
+import FormError from '~/components/atoms/FormError.vue'
+
 definePageMeta({
     layout: 'auth',
 })
+
+const rules = {
+    email: { required, email }, // Matches state.email
+    password: { required }, // Matches state.password
+}
+
+const registerInputState = ref({
+    email: '',
+    password: '',
+})
+
+const v$ = useVuelidate(rules, registerInputState)
+
+async function submitInput() {
+    const isValid = v$.value.$validate()
+    if (!isValid) return
+}
 </script>
 <template>
     <div class="bg-white h-screen flex items-center justify-center">
         <div class="w-[300px] mt-20">
             <div class="flex flex-col gap-2">
-                <h1 class="text-2xl mb-3">Sign Up</h1>
-                <input
-                    type="text"
-                    name=""
-                    placeholder="info@company.com"
-                    id=""
-                    class="focus:bg-focus-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-0 focus:focus:border-brand-800"
-                />
+                <h1 class="text-2xl mb-3">Sign up</h1>
+                <div :class="{ error: v$.email.$errors.length }">
+                    <FormError :errors="v$.email.$errors">
+                        <BaseInput
+                            v-model="registerInputState.email"
+                            :type="'text'"
+                            :placeholder="'info@company.com'"
+                        />
+                    </FormError>
+                </div>
 
                 <input
-                    type="password"
-                    name=""
-                    placeholder="Password"
                     id=""
+                    name=""
+                    type="password"
+                    placeholder="Password"
                     class="mb-2 focus:bg-focus-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-0 focus:focus-brand-800"
                 />
 
-                <button class="rounded-md mb-2 text-white py-2 bg-indigo-500 text-sm font-semibold">
+                <button
+                    class="rounded-md mb-2 text-white py-2 bg-indigo-500 text-sm font-semibold"
+                    @click="submitInput"
+                >
                     Create Account
                 </button>
                 <p
