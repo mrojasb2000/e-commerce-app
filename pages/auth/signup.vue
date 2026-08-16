@@ -7,7 +7,7 @@ definePageMeta({
     <div class="bg-white h-screen flex items-center justify-center">
         <div class="w-[300px] mt-20">
             <div class="flex flex-col gap-2">
-                <h1 class="text-2xl mb-3">Sign In</h1>
+                <h1 class="text-2xl mb-3">Sign Up</h1>
                 <input
                     type="text"
                     name=""
