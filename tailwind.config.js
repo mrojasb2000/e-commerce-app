@@ -7,7 +7,7 @@ export default {
             colors: {
                 primary: '#42B883',
                 secondary: '#35495E',
-                neutral: '#F7F9FA'
+                neutral: '#F7F9FA',
             },
             // 1.5rem * 16 = 24px
             // 24px / 16 = 1.5rem
@@ -19,17 +19,17 @@ export default {
                     DEFAULT: '1.5rem', // horizontal padding
                     lg: '4rem',
                     xl: '4rem',
-                    '2xl': '4rem'
+                    '2xl': '4rem',
                 },
                 screens: {
                     sm: '576px',
                     md: '768px',
                     lg: '992px',
                     xl: '1200px',
-                    '2xl': '1400px'
-                }
-            }
-        }
+                    '2xl': '1400px',
+                },
+            },
+        },
     },
-    plugins: []
+    plugins: [],
 }
