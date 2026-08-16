@@ -25,13 +25,17 @@ definePageMeta({
                 />
 
                 <button class="rounded-md mb-2 text-white py-2 bg-indigo-500 text-sm font-semibold">
-                    Login
+                    Create Account
                 </button>
                 <p
                     class="text-sm font-normal text-center text-gray-700 dark:text-gray-500 sm:text-start"
                 >
                     Already have an account?
-                    <a class="text-indigo-500 hover:text-brand-600 font-semibold">Sign In</a>
+                    <NuxtLink
+                        to="/auth/signin"
+                        class="text-indigo-500 hover:text-brand-600 font-semibold"
+                        >Sign In</NuxtLink
+                    >
                 </p>
             </div>
         </div>
