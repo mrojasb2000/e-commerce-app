@@ -8,5 +8,21 @@ export default defineNuxtConfig({
             pathPrefix: false,
         },
     ],
-    modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxtjs/eslint-module', '@nuxtjs/tailwindcss'],
+    runtimeConfig: {
+        //private: is accessible only on the server
+        JWT_TOKEN_KEY: process.env.JWT_TOKEN_KEY,
+        REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
+        DATABASE_URL: process.env.DATABASE_URL,
+        public: {
+            //public: is accessible on server and client
+        },
+    },
+    modules: [
+        '@nuxt/eslint',
+        '@nuxt/icon',
+        '@nuxtjs/eslint-module',
+        '@nuxtjs/tailwindcss',
+        '@prisma/nuxt',
+        '@pinia/nuxt',
+    ],
 })

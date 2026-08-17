@@ -1,75 +1,157 @@
-# Nuxt Minimal Starter
+# E-Commerce - Nuxt 4
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Aplicación de e-commerce construida con Nuxt 4, Vue 3 y Tailwind CSS, con ORM Prisma y base de datos MySQL (MariaDB).
 
-## Setup
+## Stack tecnológico
 
-Make sure to install dependencies:
+| Capa             | Tecnología             | Versión |
+| ---------------- | ---------------------- | ------- |
+| Framework        | Nuxt                   | 4.5.2   |
+| UI               | Vue                    | 3.5.41  |
+| Estilos          | Tailwind CSS           | 6.14.0  |
+| State Management | Pinia                  | 4.0.3   |
+| ORM              | Prisma                 | 7.9.1   |
+| Base de datos    | MySQL (MariaDB)        | 3.5.3   |
+| Validación       | Vuelidate              | 2.0.3   |
+| Icons            | @nuxt/icon             | 2.5.0   |
+| Notificaciones   | vue-toast-notification | 3.1.3   |
+| Paquete manager  | pnpm                   | -       |
+
+## Estructura del proyecto
+
+```
+e-commerce/
+├── app/
+├── components/
+│   └── atoms/              # Componentes atómicos reutilizables
+│       ├── BaseInput.vue
+│       ├── BaseBtn.vue
+│       └── FormError.vue
+├── layouts/
+│   ├── .default.vue        # Layout principal
+│   ├── auth.vue            # Layout para autenticación
+│   └── admin.vue           # Layout para panel admin
+├── pages/
+│   ├── index.vue           # /
+│   ├── auth/
+│   │   ├── signin.vue      # /auth/signin
+│   │   └── signup.vue      # /auth/signup
+│   ├── login/
+│   │   └── index.vue       # /login
+│   └── admin/
+│       └── dashboard.vue   # /admin/dashboard
+├── lib/
+│   └── prisma.ts           # Singleton Prisma client
+├── utils/
+│   └── toast-notification.ts
+├── store/                  # Pinia stores (pendiente)
+├── prisma/
+│   └── schema.prisma       # Esquema de base de datos
+├── generated/prisma/       # Cliente Prisma generado
+├── public/
+├── nuxt.config.ts
+├── tailwind.config.js
+├── tsconfig.json
+└── eslint.config.mjs
+```
+
+## Arquitectura de componentes
+
+El proyecto sigue **Atomic Design** con la estructura `components/`:
+
+- **atoms/** — Elementos base: `BaseInput`, `BaseBtn`, `FormError`
+- **molecules/** — (pendiente)
+- **organisms/** — (pendiente)
+- **templates/** — (pendiente)
+
+Los componentes se registran sin prefijo de ruta gracias a `pathPrefix: false` en `nuxt.config.ts`, por lo que se importan directamente por nombre (ej. `<BaseInput />`).
+
+## Modelos de base de datos
+
+### User
+
+| Campo      | Tipo                     | Descripción         |
+| ---------- | ------------------------ | ------------------- |
+| `id`       | Int (PK, auto-increment) | Identificador único |
+| `email`    | String (unique)          | Correo electrónico  |
+| `name`     | String? (opcional)       | Nombre del usuario  |
+| `password` | String                   | Contraseña hasheada |
+
+## Configuración
+
+### Requisitos
+
+- Node.js >= 18
+- pnpm
+- MySQL / MariaDB ejecutándose en `localhost:3306`
+
+### Instalación
 
 ```bash
-# npm
-npm install
-
-# pnpm
+# Instalar dependencias
 pnpm install
 
-# yarn
-yarn install
-
-# bun
-bun install
+# Configurar variables de entorno
+cp .env.example .env   # o editar .env manualmente
 ```
 
-## Development Server
+### Variables de entorno (`.env`)
 
-Start the development server on `http://localhost:3000`:
+```env
+DATABASE_URL="mysql://root:secret@localhost:3306/ecommerce"
+JWT_TOKEN_KEY="tu-clave-jwt"
+REFRESH_TOKEN_KEY="tu-clave-refresh"
+```
+
+### Base de datos
 
 ```bash
-# npm
-npm run dev
+# Ejecutar migraciones
+pnpm prisma migrate dev
 
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+# Generar cliente Prisma
+pnpm prisma generate
 ```
 
-## Production
+## Scripts disponibles
 
-Build the application for production:
+| Comando             | Descripción                                       |
+| ------------------- | ------------------------------------------------- |
+| `pnpm dev`          | Servidor de desarrollo en `http://localhost:3000` |
+| `pnpm build`        | Build de producción                               |
+| `pnpm preview`      | Vista previa del build de producción              |
+| `pnpm lint`         | Verificar linting con ESLint                      |
+| `pnpm lint:fix`     | Corregir problemas de linting                     |
+| `pnpm format`       | Formatear código con Prettier                     |
+| `pnpm format:check` | Verificar formato sin modificar                   |
+| `pnpm check:all`    | Ejecutar lint + format:check                      |
 
-```bash
-# npm
-npm run build
+## Tema de Tailwind CSS
 
-# pnpm
-pnpm build
+Colores personalizados del proyecto:
 
-# yarn
-yarn build
-
-# bun
-bun run build
+```js
+// tailwind.config.js
+{
+  primary: '#42B883',   // Verde Vue
+  secondary: '#35495E', // Azul oscuro Vue
+  neutral: '#F7F9FA',
+}
 ```
 
-Locally preview production build:
+Breakpoints estilo Bootstrap: `sm: 576px`, `md: 768px`, `lg: 992px`, `xl: 1200px`, `2xl: 1400px`.
 
-```bash
-# npm
-npm run preview
+## Estado actual
 
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- [x] Proyecto base con Nuxt 4
+- [x] Prisma ORM con MySQL/MariaDB
+- [x] Componentes atómicos (BaseInput, BaseBtn, FormError)
+- [x] Layouts (default, auth, admin)
+- [x] Páginas de autenticación con validación (Vuelidate)
+- [x] Utilidad de notificaciones toast
+- [x] ESLint + Prettier + pre-commit hooks
+- [ ] Stores de Pinia
+- [ ] Middleware de autenticación
+- [ ] Rutas API / server
+- [ ] Sistema de roles y permisos
+- [ ] Componentes molecules, organisms y templates
